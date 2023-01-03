@@ -1,7 +1,9 @@
 import 'dart:ui';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:todo_app/main.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:todo_app/screens/new_plan_screen.dart';
@@ -103,17 +105,88 @@ class _MainScreenState extends State<MainScreen> {
                           ));
                         },
                         onLongPress: () {
-                          bool status = objectBox.deleteThePlan(data.id as int);
-                          var snackbar = SnackBar(
-                              backgroundColor: ProjectColors.splash_background,
-                              duration: Duration(seconds: 3),
-                              content: Text(
-                                status ? "Plan is deleted" : "Error",
-                                style: TextStyle(
-                                    fontFamily: "Josefin Sans",
-                                    color: Colors.black),
-                              ));
-                          ScaffoldMessenger.of(context).showSnackBar(snackbar);
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false, // user mu
+                            builder: (context) {
+                              return AlertDialog(
+                                backgroundColor:
+                                    Color.fromARGB(255, 255, 237, 225),
+                                shadowColor: Colors.amberAccent,
+                                title: Text(
+                                  snapshot.data![index].title.toUpperCase(),
+                                  style: TextStyle(fontFamily: "Josefin Sans"),
+                                ),
+                                content: Text(
+                                  "Confirm if you want to delete permenently.",
+                                  style: TextStyle(fontFamily: "Josefin Sans"),
+                                ),
+                                actions: [
+                                  InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: Container(
+                                        alignment: Alignment.center,
+                                        height: height * 0.045,
+                                        width: width * 0.2,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.all(
+                                              Radius.circular(10)),
+                                          color: Color.fromARGB(
+                                              255, 219, 219, 219),
+                                        ),
+                                        child: Text(
+                                          textAlign: TextAlign.center,
+                                          "cancel",
+                                          style: TextStyle(
+                                              fontSize: 18,
+                                              color: Colors.black,
+                                              fontFamily: "Josefin Sans"),
+                                        )),
+                                  ),
+                                  SizedBox(
+                                    width: width * 0.01,
+                                  ),
+                                  InkWell(
+                                    onTap: () {
+                                      bool status = objectBox.deleteThePlan(
+                                          snapshot.data![index].id as int);
+                                      var snackbar = SnackBar(
+                                          backgroundColor:
+                                              ProjectColors.splash_background,
+                                          duration: Duration(seconds: 3),
+                                          content: Text(
+                                            status
+                                                ? "Plan is deleted"
+                                                : "Error",
+                                            style: TextStyle(
+                                                fontFamily: "Josefin Sans",
+                                                color: Colors.black),
+                                          ));
+                                      Navigator.of(context).pop();
+                                      ScaffoldMessenger.of(context)
+                                          .showSnackBar(snackbar);
+                                    },
+                                    child: Container(
+                                      height: height * 0.045,
+                                      width: width * 0.2,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.all(
+                                            Radius.circular(10)),
+                                        color: Colors.red,
+                                      ),
+                                      child: Icon(
+                                        CupertinoIcons.delete_simple,
+                                        color: Colors.white,
+                                        size: 18,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: Container(
                           margin: EdgeInsets.only(
