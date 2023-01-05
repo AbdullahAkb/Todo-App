@@ -153,7 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                                     onTap: () {
                                       bool status = objectBox.deleteThePlan(
                                           snapshot.data![index].id as int);
-                                          HapticFeedback.vibrate();
+                                      HapticFeedback.vibrate();
                                       var snackbar = SnackBar(
                                           backgroundColor:
                                               ProjectColors.splash_background,
@@ -227,7 +227,10 @@ class _MainScreenState extends State<MainScreen> {
                             ),
                             trailing: Text(
                               data.date,
-                              style: TextStyle(fontFamily: "Josefin Sans"),
+                              style: TextStyle(
+                                fontFamily: "Josefin Sans",
+                                color: Color.fromARGB(255, 193, 156, 9),
+                              ),
                             ),
                           ),
                         ),
