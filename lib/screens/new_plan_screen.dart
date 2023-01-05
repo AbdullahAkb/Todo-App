@@ -140,6 +140,7 @@ class _NewPlanScreenState extends State<NewPlanScreen> {
         onPressed: () {
           if (_formKey.currentState!.validate()) {
             var status = createNewPlan();
+            HapticFeedback.vibrate();
             var snackbar = SnackBar(
                 backgroundColor: ProjectColors.splash_background,
                 duration: Duration(seconds: 3),

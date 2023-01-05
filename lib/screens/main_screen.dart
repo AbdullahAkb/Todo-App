@@ -8,7 +8,7 @@ import 'package:todo_app/main.dart';
 import 'package:todo_app/models/todo_model.dart';
 import 'package:todo_app/screens/new_plan_screen.dart';
 import 'package:todo_app/utils/projectColors.dart';
-
+import 'package:flutter_vibrate/flutter_vibrate.dart';
 import 'edit_plan_screen.dart';
 
 class MainScreen extends StatefulWidget {
@@ -105,6 +105,7 @@ class _MainScreenState extends State<MainScreen> {
                           ));
                         },
                         onLongPress: () {
+                          HapticFeedback.vibrate();
                           showDialog(
                             context: context,
                             barrierDismissible: false, // user mu
@@ -152,6 +153,7 @@ class _MainScreenState extends State<MainScreen> {
                                     onTap: () {
                                       bool status = objectBox.deleteThePlan(
                                           snapshot.data![index].id as int);
+                                          HapticFeedback.vibrate();
                                       var snackbar = SnackBar(
                                           backgroundColor:
                                               ProjectColors.splash_background,

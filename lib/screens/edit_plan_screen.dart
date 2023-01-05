@@ -139,11 +139,12 @@ class _EditPlanScreenState extends State<EditPlanScreen> {
           if (_formKey.currentState!.validate()) {
             TodoModel editData = TodoModel.autoId(
                 date: selectedDate.toString(),
-                
                 title: titleController.text,
                 body: bodyController.text);
 
-            var status = await objectBox.editPlan(editData,widget.details.id as int);
+            var status =
+                await objectBox.editPlan(editData, widget.details.id as int);
+            HapticFeedback.vibrate();
             var snackbar = SnackBar(
                 backgroundColor: ProjectColors.splash_background,
                 duration: Duration(seconds: 3),
